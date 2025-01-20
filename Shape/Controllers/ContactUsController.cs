@@ -1,9 +1,7 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Shape.DataBaseConnection;
 using Shape.Model;
-using System.Collections.Generic;
 using System.Data;
 
 namespace Shape.Controllers

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Shape.DataBaseConnection;
 using Dapper;
 using Shape.Model;
-using System.Collections.Generic;
 using System.Data;
+
 
 namespace Shape.Controllers
 {
@@ -22,16 +21,16 @@ namespace Shape.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<PageContent>> GetContactUs()
         {
-            IEnumerable<PageContent> pageContents;
+            IEnumerable<PageContent> List;
 
             using (IDbConnection connection = _dbConnection.GetSqlConnection())
             {
                 connection.Open();
                 // Use Dapper to query the database
-                pageContents = connection.Query<PageContent>("SELECT Id, Heading, Description FROM PageContent");
+                List = connection.Query<PageContent>("SELECT Id, Heading, Description FROM PageContent");
             }
 
-            return Ok(pageContents);
+            return Ok(List);
         }
     }
 }

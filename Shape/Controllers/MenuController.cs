@@ -1,9 +1,7 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Shape.DataBaseConnection;
 using Shape.Model;
-using System.Collections.Generic;
 using System.Data;
 
 namespace Shape.Controllers
@@ -22,16 +20,16 @@ namespace Shape.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<MenuTable>> GetContactUs()
         {
-            IEnumerable<MenuTable> Menu;
+            IEnumerable<MenuTable> List;
 
             using (IDbConnection connection = _dbConnection.GetSqlConnection())
             {
                 connection.Open();
                 // Use Dapper to query the database
-                Menu = connection.Query<MenuTable>("SELECT Id, Menu, OrderNo, ParentId, IsHeader, IsFooter FROM Menu");
+                List = connection.Query<MenuTable>("SELECT Id, Menu, OrderNo, ParentId, IsHeader, IsFooter FROM Menu");
             }
 
-            return Ok(Menu);
+            return Ok(List);
            
         }
     }
