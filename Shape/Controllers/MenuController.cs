@@ -18,19 +18,25 @@ namespace Shape.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<MenuTable>> GetContactUs()
+        public async Task<ActionResult<IEnumerable<MenuTable>>> GetMenu()
         {
-            IEnumerable<MenuTable> List;
-
-            using (IDbConnection connection = _dbConnection.GetSqlConnection())
+            try
             {
-                connection.Open();
-                // Use Dapper to query the database
-                List = connection.Query<MenuTable>("SELECT Id, Menu, OrderNo, ParentId, IsHeader, IsFooter FROM Menu");
+                using (IDbConnection connection = _dbConnection.GetSqlConnection())
+                {
+                    // Use Dapper to query the database
+                    var List = await connection.QueryAsync<MenuTable>(
+                        "GetMenu",
+                        commandType: CommandType.StoredProcedure
+                        );
+                    return Ok(List.ToList());
+                }
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error Fetching Menu", details = ex.Message });
 
-            return Ok(List);
-           
+            }
         }
     }
 }

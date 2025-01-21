@@ -18,21 +18,25 @@ namespace Shape.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Employee>> GetContactUs()
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
         {
 
-            IEnumerable<Employee> List;
-
-            using (IDbConnection connection = _dbConnection.GetSqlConnection())
+            try
             {
-                connection.Open();
-                // Use Dapper to query the database
-                List = connection.Query<Employee> ("SELECT Id, EmpName, EmpRole, EmpDescription FROM Employee");
+                using (var connection = _dbConnection.GetSqlConnection())
+                {
+                    var List = await connection.QueryAsync<Employee>(
+                        "GetEmployee",
+                        commandType: CommandType.StoredProcedure
+                    );
+                    return Ok(List.ToList());
+                }
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error Fetching Employee", details = ex.Message });
 
-            return Ok(List);
-
-            
+            }
         }
     }
 }

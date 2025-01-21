@@ -3,6 +3,7 @@ using Shape.DataBaseConnection;
 using Dapper;
 using Shape.Model;
 using System.Data;
+using System.Collections.Generic;
 
 
 namespace Shape.Controllers
@@ -13,24 +14,30 @@ namespace Shape.Controllers
     {
         private readonly DbConnection _dbConnection;
 
-        public PageController(DbConnection dbConnection)                                                                                                                        
+        public PageController(DbConnection dbConnection)
         {
             _dbConnection = dbConnection;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<PageContent>> GetContactUs()
+        public async Task<ActionResult<IEnumerable<PageContent>>> GetPageContent()
         {
-            IEnumerable<PageContent> List;
-
-            using (IDbConnection connection = _dbConnection.GetSqlConnection())
+            try
             {
-                connection.Open();
-                // Use Dapper to query the database
-                List = connection.Query<PageContent>("SELECT Id, Heading, Description FROM PageContent");
-            }
+                using (IDbConnection connection = _dbConnection.GetSqlConnection())
+                {
 
-            return Ok(List);
+                    var List = await connection.QueryAsync<PageContent>(
+                        "GetPageContent",
+                        commandType: CommandType.StoredProcedure
+                        );
+                    return Ok(List.ToList());
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error Fetching PageContent", details = ex.Message });
+            }
         }
     }
 }

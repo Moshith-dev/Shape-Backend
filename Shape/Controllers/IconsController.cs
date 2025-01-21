@@ -18,18 +18,28 @@ namespace Shape.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Icons>> GetContactUs()
+        public async Task<ActionResult<IEnumerable<Icons>>> GetIcon()
         {
-            IEnumerable<Icons> List;
 
-            using (IDbConnection connection = _dbConnection.GetSqlConnection())
+            try
             {
-                connection.Open();
-                // Use Dapper to query the database
-                List = connection.Query<Icons>("SELECT Id, IconUrl, IconAlt FROM Icons");
-            }
+                using (IDbConnection connection = _dbConnection.GetSqlConnection())
+                {
 
-            return Ok(List);
+                    // Use Dapper to query the database
+                    var List = await connection.QueryAsync<Icons>(
+                        "GetIcon",
+                        commandType: CommandType.StoredProcedure
+                        );
+                    return Ok(List.ToList());
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error Fetching Icons", details = ex.Message });
+
+
+            }
         }
     }
 }
