@@ -1,5 +1,6 @@
-
 using Shape.DataBaseConnection;
+using Shape.Handlers;
+using Shape.Repositories;
 
 namespace Shape
 {
@@ -12,6 +13,16 @@ namespace Shape
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddSingleton<DbConnection>(); // Register DbConnection
+
+            // Register the repository
+            builder.Services.AddScoped<IRepository, Repository>(); // Register IRepository and its implementation
+
+            // Register handlers
+            builder.Services.AddScoped<ContactUsHandler>();
+            builder.Services.AddScoped<IconsHandler>();
+            builder.Services.AddScoped<PageContentHandler>();
+            builder.Services.AddScoped<EmployeeHandler>();
+            builder.Services.AddScoped<MenuHandler>();
 
             // Add Swagger
             builder.Services.AddEndpointsApiExplorer();
