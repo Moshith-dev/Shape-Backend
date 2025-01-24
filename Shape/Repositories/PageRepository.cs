@@ -6,10 +6,10 @@ using System.Data;
 
 namespace Shape.Repositories
 {
-    public class Repository : IRepository
+    public class PageRepository : IPageRepository
     {
         private readonly DbConnection _dbConnection;
-        public Repository(DbConnection dbConnection)
+        public PageRepository(DbConnection dbConnection)
         {
             _dbConnection = dbConnection;
         }

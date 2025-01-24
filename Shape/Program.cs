@@ -15,7 +15,7 @@ namespace Shape
             builder.Services.AddSingleton<DbConnection>(); // Register DbConnection
 
             // Register the repository
-            builder.Services.AddScoped<IRepository, Repository>(); // Register IRepository and its implementation
+            builder.Services.AddScoped<IPageRepository, PageRepository>(); // Register IRepository and its implementation
 
             // Register handlers
             builder.Services.AddScoped<ContactUsHandler>();

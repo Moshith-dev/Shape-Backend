@@ -5,9 +5,9 @@ namespace Shape.Handlers
 {
     public class IconsHandler
     {
-        private readonly IRepository _repository;
+        private readonly IPageRepository _repository;
 
-        public IconsHandler(IRepository repository)
+        public IconsHandler(IPageRepository repository)
         {
             _repository = repository;
         }

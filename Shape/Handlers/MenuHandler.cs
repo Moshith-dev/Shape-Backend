@@ -5,9 +5,9 @@ namespace Shape.Handlers
 {
     public class MenuHandler
     {
-        private readonly IRepository _repository;
+        private readonly IPageRepository _repository;
 
-        public MenuHandler(IRepository repository)
+        public MenuHandler(IPageRepository repository)
         {
             _repository = repository;
         }

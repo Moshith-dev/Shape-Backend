@@ -2,7 +2,7 @@
 
 namespace Shape.Repositories
 {
-    public interface IRepository
+    public interface IPageRepository
     {
         Task<IEnumerable<PageContent>> GetPageContentAsync();
         Task<IEnumerable<MenuTable>> GetMenuAsync();

@@ -5,9 +5,9 @@ namespace Shape.Handlers
 {
     public class EmployeeHandler
     {
-        private readonly IRepository _repository;
+        private readonly IPageRepository _repository;
 
-        public EmployeeHandler(IRepository repository)
+        public EmployeeHandler(IPageRepository repository)
         {
             _repository = repository;
         }

@@ -5,9 +5,9 @@ namespace Shape.Handlers
 {
     public class PageContentHandler
     {
-        private readonly IRepository _repository;
+        private readonly IPageRepository _repository;
 
-        public PageContentHandler(IRepository repository)
+        public PageContentHandler(IPageRepository repository)
         {
             _repository = repository;
         }

@@ -5,9 +5,9 @@ namespace Shape.Handlers
 {
     public class ContactUsHandler
     {
-        private readonly IRepository _repository;
+        private readonly IPageRepository _repository;
 
-        public ContactUsHandler(IRepository repository)
+        public ContactUsHandler(IPageRepository repository)
         {
             _repository = repository;
         }
