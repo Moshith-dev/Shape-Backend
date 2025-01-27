@@ -1,34 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shape.Handlers;
 using Shape.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Shape.Controllers 
+namespace Shape.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PageController : ControllerBase
+    public class PageController(
+        PageContentHandler pageContentHandler,
+        MenuHandler menuHandler,
+        IconsHandler iconsHandler,
+        EmployeeHandler employeeHandler,
+        ContactUsHandler contactUsHandler) : ControllerBase
     {
-        private readonly PageContentHandler _pageContentHandler;
-        private readonly MenuHandler _menuHandler;
-        private readonly IconsHandler _iconsHandler;
-        private readonly EmployeeHandler _employeeHandler;
-        private readonly ContactUsHandler _contactUsHandler;
-
-        public PageController(
-            PageContentHandler pageContentHandler,
-            MenuHandler menuHandler,
-            IconsHandler iconsHandler,
-            EmployeeHandler employeeHandler,
-            ContactUsHandler contactUsHandler)
-        {
-            _pageContentHandler = pageContentHandler;
-            _menuHandler = menuHandler;
-            _iconsHandler = iconsHandler;
-            _employeeHandler = employeeHandler;
-            _contactUsHandler = contactUsHandler;
-        }
+        private readonly PageContentHandler _pageContentHandler = pageContentHandler;
+        private readonly MenuHandler _menuHandler = menuHandler;
+        private readonly IconsHandler _iconsHandler = iconsHandler;
+        private readonly EmployeeHandler _employeeHandler = employeeHandler;
+        private readonly ContactUsHandler _contactUsHandler = contactUsHandler;
 
         [HttpGet("pagecontent")]
         [ProducesResponseType(typeof(IEnumerable<PageContent>), 200)]
