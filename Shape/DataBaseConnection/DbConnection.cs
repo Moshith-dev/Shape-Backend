@@ -2,16 +2,14 @@
 
 namespace Shape.DataBaseConnection
 {
-    public class DbConnection
+    public class DbConnection(string connectionString)
     {
-        private readonly IConfiguration configuration;
-        private readonly string _connectionString;
-        public DbConnection(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-            _connectionString = configuration.GetConnectionString("Database");
-        }
-        public SqlConnection GetSqlConnection() => new SqlConnection(_connectionString);
+        private readonly string _connectionString = connectionString;
 
+        public DbConnection(IConfiguration configuration) : this(configuration.GetConnectionString("Database") ?? throw new ArgumentNullException(nameof(configuration), "Database connection string cannot be null"))
+        {
+        }
+
+        public SqlConnection GetSqlConnection() => new(_connectionString);
     }
 }

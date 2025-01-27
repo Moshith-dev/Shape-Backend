@@ -1,4 +1,4 @@
-﻿namespace Shape.Model
+﻿namespace Shape.Models
 {
     public class PageContent
     {
